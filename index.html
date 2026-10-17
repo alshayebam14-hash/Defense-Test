@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>وزارة الدفاع - نموذج تعبئة البيانات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #080c14; color: #f3f4f6; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-6 left-6 z-50 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 transform -translate-y-12 opacity-0 pointer-events-none">
+        <i class="fa-solid fa-circle-check text-lg"></i>
+        <span id="toastMsg" class="text-xs font-semibold">تم إرسال الطلب بنجاح</span>
+    </div>
+
+    <div class="w-full max-w-xl bg-[#0d1322] border border-white/10 rounded-2xl shadow-2xl overflow-hidden p-6 sm:p-8 space-y-6">
+        
+        <!-- Header / Logo -->
+        <div class="text-center border-b border-white/10 pb-6">
+            <h1 class="text-xl sm:text-2xl font-black text-white">وزارة الدفاع</h1>
+            <p class="text-xs text-gray-400 mt-1">نموذج تعبئة البيانات للانضمام الى وزارة الدفاع</p>
+        </div>
+
+        <!-- Emblem / Badge -->
+        <div class="flex justify-center">
+            <div class="w-36 h-36 sm:w-44 sm:h-44 bg-white/5 border border-white/10 rounded-full flex items-center justify-center p-2 shadow-inner overflow-hidden">
+                <!-- شعار وزارة الدفاع بالرابط الذي أرسلته -->
+                <img src="https://cdn.discordapp.com/attachments/851184151322427413/1560972737151770775/Firefly_RemoveBackground_2.png?ex=6ad4a8a6&is=6ad35726&hm=c37252d035cf9b5c76613a9fb81ccdf837ee817cce1652cd5c189faa24224f65" alt="شعار وزارة الدفاع" class="w-full h-full object-contain filter drop-shadow-md">
+            </div>
+        </div>
+
+        <!-- Form -->
+        <form onsubmit="submitRecruitmentForm(event)" class="space-y-4 text-xs">
+            
+            <!-- 1. الاسم -->
+            <div class="bg-[#0f172a] border border-white/10 rounded-xl p-4 space-y-2">
+                <label class="block font-bold text-gray-300">الاسم ( المراد كتابته بالديسكورد ) <span class="text-rose-500">*</span></label>
+                <input type="text" id="rName" required placeholder="مثال: Ahmed Ali" 
+                       class="w-full bg-[#161f33] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 font-mono">
+                <p class="text-[10px] text-gray-400">إنجليزي فقط، 3 أحرف فأكثر لكل كلمة، بدون رموز أو أرقام أو تكرار .</p>
+            </div>
+
+            <!-- 2. العمر -->
+            <div class="bg-[#0f172a] border border-white/10 rounded-xl p-4 space-y-2">
+                <label class="block font-bold text-gray-300">العمر <span class="text-rose-500">*</span></label>
+                <input type="number" id="rAge" required min="12" max="99" placeholder="أدخل عمرك" 
+                       class="w-full bg-[#161f33] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500">
+            </div>
+
+            <!-- 3. ايدي اللعبة -->
+            <div class="bg-[#0f172a] border border-white/10 rounded-xl p-4 space-y-2">
+                <label class="block font-bold text-gray-300">ايدي اللعبة <span class="text-rose-500">*</span></label>
+                <input type="text" id="rGameId" required placeholder="مثال: 1050" 
+                       class="w-full bg-[#161f33] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 font-mono">
+            </div>
+
+            <!-- 4. ايدي الديسكورد (copy id) -->
+            <div class="bg-[#0f172a] border border-white/10 rounded-xl p-4 space-y-2">
+                <label class="block font-bold text-gray-300">ايدي الديسكورد الخاص بك ( copy id ) ( الدسكورد وليس اللعبة ) <span class="text-rose-500">*</span></label>
+                <input type="text" id="rDiscordId" required placeholder="مثال: 773654188583944232" 
+                       class="w-full bg-[#161f33] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 font-mono">
+                <p class="text-[10px] text-gray-400">يجب أن يتكون من أرقام فقط (من 18 إلى 20 خانة).</p>
+            </div>
+
+            <!-- 5. ايدي مسؤول القبول -->
+            <div class="bg-[#0f172a] border border-white/10 rounded-xl p-4 space-y-2">
+                <label class="block font-bold text-gray-300">ايدي مسؤول القبول باللعبة <span class="text-rose-500">*</span></label>
+                <input type="text" id="rOfficerId" required placeholder="أيدي المسؤول" 
+                       class="w-full bg-[#161f33] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 font-mono">
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl text-sm transition-all shadow-lg shadow-blue-600/30">
+                إرسال الطلب
+            </button>
+        </form>
+    </div>
+
+    <!-- Firebase Logic & Regex Validation -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBMyUWD57FRw0PbQSjsjRVAKSoDahNW4",
+            authDomain: "graverp-console.firebaseapp.com",
+            projectId: "graverp-console",
+            storageBucket: "graverp-console.firebasestorage.app",
+            messagingSenderId: "1058553484363",
+            appId: "1:1058553484363:web:9287d677b7f2594d1929ce"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.submitRecruitmentForm = async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('rName').value.trim();
+            const age = document.getElementById('rAge').value.trim();
+            const gameId = document.getElementById('rGameId').value.trim();
+            const discordId = document.getElementById('rDiscordId').value.trim();
+            const officerId = document.getElementById('rOfficerId').value.trim();
+
+            // 1. تحقق شرط الاسم (Regex)
+            const nameRegex = /^[a-zA-Z]{3,}( [a-zA-Z]{3,})*$/;
+            if (!nameRegex.test(name)) {
+                showToast("خطأ في الاسم: يجب أن يكون بالإنجليزية فقط، بدون رموز أو أرقام، وكل كلمة 3 حروف فأكثر.");
+                return;
+            }
+
+            // 2. تحقق شرط ايدي الديسكورد (Regex)
+            const discordRegex = /^[0-9]{18,20}$/;
+            if (!discordRegex.test(discordId)) {
+                showToast("الاجابة خاطئة يرجى ادراج ال ( Copy id ) الصحيح (أرقام فقط من 18 إلى 20 خانة).");
+                return;
+            }
+
+            try {
+                // حفظ البيانات مباشرة في مجموعة منفصلة بالأرشيف داخل Firebase مع التاريخ والوقت التلقائي
+                await addDoc(collection(db, "recruitment_archive"), {
+                    name: name,
+                    age: age,
+                    gameId: gameId,
+                    discordId: discordId,
+                    officerId: officerId,
+                    status: "معلق",
+                    createdAt: serverTimestamp()
+                });
+
+                showToast("تم إرسال طلبك وحفظه بنجاح!");
+                e.target.reset();
+            } catch (err) {
+                console.error("Firebase Error:", err);
+                showToast("حدث خطأ أثناء الإرسال، يرجى المحاولة مجدداً.");
+            }
+        };
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('opacity-0', '-translate-y-12', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-12', 'pointer-events-none');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
