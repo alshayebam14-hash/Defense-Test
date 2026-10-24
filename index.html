@@ -66,7 +66,7 @@
                 <label class="block font-bold text-gray-300">الاسم ( المراد كتابته بالديسكورد ) <span class="text-rose-500">*</span></label>
                 <input type="text" id="rName" required placeholder="مثال: Ahmed Ali" 
                        class="w-full bg-[#161f33] border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 font-mono">
-                <p class="text-[10px] text-gray-400">إنجليزي فقط، 3 أحرف فأكثر لكل كلمة، بدون رموز أو أرقام أو تكرار .</p>
+                <p class="text-[10px] text-gray-400">اسم إنجليزي من حرفين فأكثر، بدون رموز، ويمنع وجود أرقام في نهاية الاسم.</p>
             </div>
 
             <!-- 2. العمر -->
@@ -346,10 +346,23 @@
             const discordId = document.getElementById('rDiscordId').value.trim();
             const officerId = document.getElementById('rOfficerId').value.trim();
 
-            // 1. تحقق شرط الاسم (Regex)
-            const nameRegex = /^[a-zA-Z]{3,}( [a-zA-Z]{3,})*$/;
-            if (!nameRegex.test(name)) {
-                showToast("خطأ في الاسم: يجب أن يكون بالإنجليزية فقط، بدون رموز أو أرقام، وكل كلمة 3 حروف فأكثر.");
+            // 1. تحقق شرط عدم وجود أرقام في نهاية الاسم + حروف إنجليزية من حرفين فأكثر وبدون رموز
+            const endsWithNumber = /\d+$/;
+            const validNameStructure = /^[a-zA-Z0-9]{2,}( [a-zA-Z0-9]{2,})*$/;
+            const hasSymbols = /[^a-zA-Z0-9 ]/;
+
+            if (hasSymbols.test(name)) {
+                showToast("خطأ في الاسم: يجب أن يتكون من حروف وأرقام فقط وبدون رموز.");
+                return;
+            }
+
+            if (endsWithNumber.test(name)) {
+                showToast("خطأ في الاسم: يمنع وجود أرقام في نهاية الاسم.");
+                return;
+            }
+
+            if (!validNameStructure.test(name)) {
+                showToast("خطأ في الاسم: يجب أن تكون كل كلمة مكونة من حرفين فأكثر.");
                 return;
             }
 
