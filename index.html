@@ -116,7 +116,6 @@
             <div>
                 <label class="block text-gray-400 mb-1">رمز المرور للمسؤول</label>
                 <input type="password" id="adminPassInput" placeholder="أدخل كلمة المرور" class="w-full bg-[#161f33] border border-white/10 rounded-lg p-2.5 text-white">
-                <p class="text-[10px] text-gray-400 mt-1">كلمة المرور المسجلة: <span class="font-mono text-blue-400 font-bold">moda2010</span></p>
             </div>
             <div class="flex gap-2 pt-2">
                 <button onclick="verifyAdminPass()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg">دخول</button>
@@ -179,7 +178,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // القيم الافتراضية مع كلمة المرور الجديده moda2010
         const defaultDepts = [
             { id: '1', name: 'القوات المسلحة', icon: 'fa-shield-halved', color: 'from-blue-600 to-indigo-700' },
             { id: '2', name: 'العمليات الخاصة', icon: 'fa-user-ninja', color: 'from-purple-600 to-indigo-800' }
